@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div>i enjoy lamp color is now <span id="lamp_color"></span></div>
+    <script>
+      var el = document.querySelectorAll("#lamp_color")[0];
+      function setColor(params) {
+        var data = null;
+        var xhr = new XMLHttpRequest();
+        var uri =
+          "https://i-enjoy-lamp.azurewebsites.net/api/setColor?color=" +
+          params.color;
+        xhr.open("GET", uri, true);
+
+        xhr.onload = function() {
+          if (xhr.status >= 200 && xhr.status < 400) {
+            el.textContent = params.color;
+            setTimeout(function() {
+              swap(params.color);
+            }, 9000);
+          } else {
+            // We reached our target server, but it returned an error
+            el.textContent = "We reached the server, but it returned an error";
+          }
+        };
+        xhr.onerror = function() {
+          // There was a connection error of some sort
+          el.textContent = "There was some connection error";
+        };
+        xhr.setRequestHeader("cache-control", "no-cache");
+        xhr.send(data);
+      }
+
+      function swap(clr) {
+        if (clr === "D0021B") {
+          setColor({ color: "417505" });
+        } else {
+          setColor({ color: "D0021B" });
+        }
+      }
+
+      swap("D0021B");
+    </script>
+  </body>
+</html>
