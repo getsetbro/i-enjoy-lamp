@@ -22,6 +22,8 @@
           setColor({ color: c });
         }, 9000);
       }
+
+      var data = null;
       function setColor(o) {
         var xhr = new XMLHttpRequest();
         var ur = "https://i-enjoy-lamp.azurewebsites.net/api/setColor?color=";
@@ -41,7 +43,6 @@
           //connection error
           console.log("There was some connection error");
         };
-        var data = null;
         xhr.send(data);
       }
 
