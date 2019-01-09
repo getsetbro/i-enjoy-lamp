@@ -4,48 +4,48 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Document</title>
+    <title>i enjoy changing lamp</title>
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="data:image/x-icon;base64,AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAC6urpvu7u7/7y8vP+9vb3/v7+//8HBwf/CwsL/xcXF/8fHx//Jycn+zMzMKQAAAAAAAAAAAAAAAAAAAAAAAAAAvb29G76+vky/v79MwMDATMHBwX/Dw8PnxMTEWcbGxkzIyMhMysrKS83NzQcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADDw8NWxMTETAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAxcXFlcbGxggAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMfHx5oAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADJycmZAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAy8vLmAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMzMzJrMzMwBAAAAAAAAAAAAAAAAAAAAAAAAAADR0dEm0dHROAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADOzs5wzc3NMQAAAAAAAAAAAAAAAM/Pzw3Q0NCN0NDQ+tHR0erS0tIXAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAz8/PFM7OzpgAAAAAAAAAAM7Ozj/Pz8/f0NDQ/9DQ0P/R0dH/0tLSnQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADPz89uz8/PZc/Pz3vOzs78z8/P/9DQ0P/Q0ND/0dHR/9HR0fzS0tImAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA0NDQAc/Pz/TPz8//z8/P/8/Pz//Pz8//0NDQ/9HR0f/R0dH/0tLSlQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANDQ0FPPz8//zs7O/8/Pz//Pz8//z8/P/9DQ0P/R0dH/0tLS/9LS0u7T09MIAAAAAAAAAAAAAAAAAAAAAMzMzADQ0NDSz8/P/87Ozv/Ozs7/zs7O/8/Pz//Q0ND/0dHR/9LS0v/S0tL/1NTUQQAAAAAAAAAAAAAAAAAAAADIyMgAy8vL3M/Pz//Ozs7/zs7O/87Ozv/Pz8//0NDQ/9DQ0P3R0dHI0tLSZtTU1AsAAAAAAAAAAAAAAAAAAAAAAAAAAMnJyULKysrOzs7O+c7OzvnOzs7cz8/PrM/Pz2zQ0NAh0dHRAAAAAAAAAAAAAB8AAAAfAADz/wAA8/8AAPf/AAD3/wAA9/8AAPPnAADzgwAA8wMAAPgBAAD4AQAA+AAAAPAAAADwAAAA+AMAAA=="
+    />
   </head>
   <body>
-    <div>i enjoy lamp color is now <span id="lamp_color"></span></div>
+    <h1>i enjoy changing lamp color</h1>
+
     <script>
-      var el = document.querySelectorAll("#lamp_color")[0];
-      function setColor(params) {
-        var data = null;
+      var c;
+      function repeat(clr) {
+        c = clr === "ff0000" ? "008000" : "ff0000";
+        setTimeout(function() {
+          setColor({ color: c });
+        }, 9000);
+      }
+      function setColor(o) {
         var xhr = new XMLHttpRequest();
-        var uri =
-          "https://i-enjoy-lamp.azurewebsites.net/api/setColor?color=" +
-          params.color;
-        xhr.open("GET", uri, true);
+        var ur = "https://i-enjoy-lamp.azurewebsites.net/api/setColor?color=";
+
+        xhr.open("GET", ur + o.color, true);
 
         xhr.onload = function() {
           if (xhr.status >= 200 && xhr.status < 400) {
-            el.textContent = params.color;
-            setTimeout(function() {
-              swap(params.color);
-            }, 9000);
+            repeat(o.color);
+            console.log("lamp is now " + o.color);
           } else {
             // We reached our target server, but it returned an error
-            el.textContent = "We reached the server, but it returned an error";
+            console.log("We reached the server, but it returned an error");
           }
         };
         xhr.onerror = function() {
-          // There was a connection error of some sort
-          el.textContent = "There was some connection error";
+          //connection error
+          console.log("There was some connection error");
         };
-        xhr.setRequestHeader("cache-control", "no-cache");
+        var data = null;
         xhr.send(data);
       }
 
-      function swap(clr) {
-        if (clr === "D0021B") {
-          setColor({ color: "417505" });
-        } else {
-          setColor({ color: "D0021B" });
-        }
-      }
-
-      swap("D0021B");
+      setColor({ color: "ff0000" });
     </script>
   </body>
 </html>
